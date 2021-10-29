@@ -18,12 +18,18 @@ export class SubscriptionController extends BaseController {
       this.handleException(error, res);
     }
   }
-  @route(":id")
+  @route("/:id")
   @GET()
   public async find(req: Request, res: Response) {
     try {
       const id = parseInt(req.params.id);
-      res.send(this.subscriptionService.find(id));
+      const result = await this.subscriptionService.find(id);
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(404);
+        res.send();
+      }
     } catch (error) {
       this.handleException(error, res);
     }
@@ -42,7 +48,7 @@ export class SubscriptionController extends BaseController {
       this.handleException(error, res);
     }
   }
-  @route(":id")
+  @route("/:id")
   @PUT()
   public async update(req: Request, res: Response) {
     try {
@@ -57,7 +63,7 @@ export class SubscriptionController extends BaseController {
       this.handleException(error, res);
     }
   }
-  @route(":id")
+  @route("/:id")
   @DELETE()
   public async delete(req: Request, res: Response) {
     try {

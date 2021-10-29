@@ -45,17 +45,17 @@ export class SubscriptionMySQLRepository implements SubscriptionRepository {
   public async store(entry: Subscription): Promise<void> {
     const nowDate = Date();
     await connector.execute(
-      "INSERT INTO wallet_subscription(user_id, code, amount, cron, created_at,) VALUES (?, ?, ?, ?, ?)"
-    ),
-      [entry.user_id, entry.code, entry.amount, entry.cron, nowDate];
+      "INSERT INTO wallet_subscription(user_id, code, amount, cron, created_at) VALUES (?, ?, ?, ?, ?)",
+      [entry.user_id, entry.code, entry.amount, entry.cron, nowDate]
+    );
   }
 
   public async update(entry: Subscription): Promise<void> {
     const nowDate = Date();
     await connector.execute(
-      "UPDATE wallet_subscription SET user_id=?, code=?, amount=?, cron=?, update_at=? WHERE id=?"
-    ),
-      [entry.user_id, entry.code, entry.amount, entry.cron, nowDate, entry.id];
+      "UPDATE wallet_subscription SET user_id=?, code=?, amount=?, cron=?, updated_at=? WHERE id=?",
+      [entry.user_id, entry.code, entry.amount, entry.cron, nowDate, entry.id]
+    );
   }
 
   public async remove(id: number): Promise<void> {

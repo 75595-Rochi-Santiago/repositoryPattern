@@ -11,6 +11,9 @@ console.log(process.env.APP_FOO);
 
 const app: express.Application = express();
 
+//JSON Support
+app.use(express.json());
+
 //container
 loadContainer(app);
 
